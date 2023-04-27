@@ -7,9 +7,13 @@ export async function authValidation(req, res, next) {
     if (!token) return res.status(401).send("Informe o token!");
 
     try {
-        // code
+        const userSession = await db.collection("sessions").findOne({token});
+        if (!userSession) return res.status(404).send("Sem permissão");
+
+        res.locals.session = userSession;
+
         next()
     } catch (err) {
-        res.sendStatus(500)
+        return res.sendStatus(500)
     }
 }

@@ -31,7 +31,7 @@ export async function signIn(req, res){
         if(!passwordCorrect) return res.status(401).send("Senha incorreta, tente novamente!");
 
         const token = uuid();
-        //com o upsert caso não exista a sessão com esse usuario, ela será criada
+        //com o upsert caso não exista a sessão com esse usuario, ela será criada com userID e token
         //caso exista acontecerá o update apenas do token
         //assim evitamos criar muitas sessions por cada login
         await db.collection("sessions").updateOne(
@@ -41,6 +41,19 @@ export async function signIn(req, res){
         );
 
         return res.status(200).send({token, name: dataUser.name});
+    }
+    catch (error){
+        return res.status(500).send(error.message);
+    }
+}
+
+export async function logout(req,res){
+    //middlewares em routes filtra a entrada já conferindo o token 
+    //e devolvendo sem Bearer utilizando res.locals.session
+    const userSession = res.locals.session;
+    try{
+        await db.collection("sessions").deleteOne({token: userSession.token});
+        return res.sendStatus(200)
     }
     catch (error){
         return res.status(500).send(error.message);
