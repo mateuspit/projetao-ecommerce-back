@@ -49,7 +49,7 @@ export async function signIn(req, res){
 
 export async function logout(req,res){
     //middlewares em routes filtra a entrada já conferindo o token 
-    //e devolvendo sem Bearer utilizando res.locals.session
+    //e devolvendo sem Bearer utilizando res.locals.sessionn
     const userSession = res.locals.session;
     try{
         await db.collection("sessions").deleteOne({token: userSession.token});
