@@ -4,7 +4,6 @@ import { v4 as uuid } from "uuid";
 
 export async function signUp(req, res) {
 	const { name, email, password } = req.body;
-	x;
 	//middlewares usando schemas em routes filtra a entrada
 	try {
 		const emailExists = await db.collection("users").findOne({ email });
