@@ -4,9 +4,11 @@ import { authValidation } from "../middlewares/authMiddleware.js";
 import validateSchema from "../middlewares/validateSchema.js";
 import { checkoutSchema } from "../schemas/CheckoutSchema.js";
 import { handleCheckout } from "../controllers/checkout.controllers.js";
+import productsRouter from "./products.routes.js";
 
 const router = Router();
 router.use(authRouter);
+router.use(productsRouter);
 
 router.post(
 	"/checkout",
