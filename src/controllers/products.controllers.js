@@ -13,8 +13,7 @@ export async function getAllProducts(req, res) {
 export async function getProduct(req, res) {
 	try {
 		const id = req.params;
-		if (!id) return res.status(422).send("Id format wrong!");
-		let data = await db.collection("products").findOne({ id }).toArray();
+		let data = await db.collection("products").findOne({ _id: id });
 		if (!data) return res.status(404).send("Product not found!");
 		data = data.slice(0, 20);
 		res.send(data);
