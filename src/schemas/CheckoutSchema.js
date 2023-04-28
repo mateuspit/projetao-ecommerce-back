@@ -5,6 +5,6 @@ export const checkoutSchema = joi.object({
 	cpf: joi.string().required(),
 	cardName: joi.string().required(),
 	cardNumber: joi.string().creditCard().required(),
-	expirationDate: joi.date().format("MM/YYYY").required(),
+	expirationDate: joi.date().required(),
 	cardCVC: joi.string().min(3).required(),
 });
