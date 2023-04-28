@@ -1,27 +1,20 @@
-// import db from "../database/database.connection";
+import { db } from "../database/database.connection.js";
 // import { ObjectId } from "mongodb";
-// import dayjs from "dayjs";
 
 export async function handleCheckout(req, res) {
-	// const sessionCollection = db.collection("session");
-	// const historyCollection = db.collection("history");
-	// const checkoutInfo = req.body;
-	// const { session } = res.locals;
+	const historyCollection = db.collection("history");
+	const checkoutInfo = req.body;
 
-	// const date = dayjs().format("MMM D, YYYY h:mm A");
+	checkoutInfo.userID = res.locals.session.userID;
+
+	checkoutInfo.timestamp = new Date();
 
 	try {
-		// const { user } = sessionCollection.findOne({ _id: session.userId }).toArray()
-
-		// purchesesCollection.insertOne({
-		// 	userId: new ObjectId(session._id),
-		// 	products: [{ productID, amount }],
-		// 	cardInfo: checkoutInfo,
-		// 	date,
-		// });
-
+		const result = await historyCollection.insertOne(checkoutInfo);
+		if (!result) return res.status(409).send("Erro ao registrar compra");
 		res.sendStatus(201);
 	} catch (err) {
+		console.error("Erro ao inserir informações de checkout:", err);
 		res.sendStatus(500);
 	}
 }
