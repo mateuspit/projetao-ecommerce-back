@@ -18,7 +18,7 @@ function generateRandomNumber(randomNumbers, totalNumber) {
 export async function getAllProducts(req, res) {
 	try {
 		let productsQuantity = await db.collection("products").countDocuments();
-		let randomNumbers = generateRandomNumber(4, productsQuantity);
+		let randomNumbers = generateRandomNumber(6, productsQuantity);
 		let data = await Promise.all(randomNumbers.map(async rn => {
             const result = await db.collection("products").find().skip(rn).limit(1).toArray();
             return result[0];
