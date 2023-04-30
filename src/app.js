@@ -8,4 +8,4 @@ app.use(express.json());
 app.use(router);
 
 const port = process.env.PORT || 5005;
-app.listen(port, () => console.log(`API runing at port ${port}`));
+app.listen(port, () => console.log(`API runing on port ${port}`));
