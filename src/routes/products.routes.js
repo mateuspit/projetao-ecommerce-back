@@ -7,7 +7,7 @@ import {
 
 const productsRouter = Router();
 
-productsRouter.use(authValidation);
+//productsRouter.use(authValidation);
 
 productsRouter.get("/products", getAllProducts);
 productsRouter.get("/product/:id", getProduct);
