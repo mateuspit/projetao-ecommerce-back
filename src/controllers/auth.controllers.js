@@ -45,7 +45,7 @@ export async function signIn(req, res) {
 				{ upsert: true }
 			);
 
-		return res.status(200).send({ token });
+		return res.status(200).send({ token, name: dataUser.name });
 	} catch (error) {
 		return res.status(500).send(error.message);
 	}
