@@ -5,6 +5,8 @@ export async function handleCheckout(req, res) {
 	const historyCollection = db.collection("history");
 	const checkoutInfo = req.body;
 
+    //middlewares usando schemas em routes filtra a entrada
+
 	checkoutInfo.userID = res.locals.session.userID;
 
 	checkoutInfo.timestamp = new Date();

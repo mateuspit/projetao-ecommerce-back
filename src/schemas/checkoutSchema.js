@@ -1,5 +1,12 @@
 import joi from "joi";
 
+const productSchema = joi.object({
+    _id: joi.string().required(),
+	amount: joi.number().integer().min(1).required(),
+	name: joi.string().trim().min(1).required(),
+	price: joi.number().precision(2).required(),
+});
+
 export const checkoutSchema = joi.object({
 	cardName: joi.string().trim().min(3).max(100).required().messages({
 		"string.min": "O nome do cartão deve ter pelo menos 3 caracteres.",
@@ -32,4 +39,5 @@ export const checkoutSchema = joi.object({
 			"string.pattern.base": "O CVC deve conter apenas números.",
 			"any.required": "O CVC é obrigatório.",
 		}),
+	products: joi.array().items(productSchema).required(),
 });
